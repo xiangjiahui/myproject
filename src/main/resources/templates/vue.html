@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue的学习之路</title>
+    <!--这是直接引入在线网址-->
+<!--    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>-->
+<!--    <script src="../js/vue.min-2.6.14.js"></script>-->
+    <script th:src="@{/js/vue.min-2.6.14.js}"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>1.插值语法————读取data中的数据，用于解析标签体内容</h1>
+        <h3>Hello,{{person.name}} &nbsp {{person.url.toUpperCase()}}</h3>
+        <hr>
+
+        <h1>2.指令语法————用于解析标签</h1>
+        <a v-bind:href="person.url">点击去尚硅谷学习</a>
+        <!--v:bind可简写为: -->
+        <a :href="url" :x="age">点击去哔哩哔哩学习</a>
+        <hr>
+        <h1>数据绑定</h1>
+        <!--
+            1.单向数据绑定v-bind:数据只能从data流向页面
+            2.双向数据绑定v-model:数据可以从data流向页面，也可以从页面流向data
+            双向绑定的数据就是value值，一般都应用在表单元素上
+        -->
+        单向数据绑定: <input type="text" v-bind:value="person.name"><br>
+        双向数据绑定: <input type="text" v-model:value="person.name">
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#root',
+            data: {
+                person:{
+                    name: '向嘉晖',
+                    url:'https://atguigu.com',
+                },
+                url:'https://www.bilibili.com/',
+                age:'18'
+            }
+        })
+
+        /*
+        el的两种写法
+        1. el: '#root',
+        2.const vm = new Vue({})
+            vm.$mount('#root')
+         */
+
+        /*
+         data的两种写法
+         1.data:''
+         2.data:function(){}或者data(){ return {name:'',...} }
+         */
+    </script>
+
+</body>
+</html>

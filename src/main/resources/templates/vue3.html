@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue的计算属性</title>
+    <script src="../js/vue.min-2.6.14.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>姓名案例使用插值语法实现</h1>
+    姓: <input type="text" v-model:value="firstName"><br>
+    名: <input type="text" v-model:value="lastName"><br>
+    全名: <span>{{firstName}}--{{lastName}}</span>
+
+    <hr>
+
+    <h1>姓名案例使用methods实现</h1>
+    姓: <input type="text" v-model:value="firstName"><br>
+    名: <input type="text" v-model:value="lastName"><br>
+    全名: <span>{{fullName()}}</span>
+
+    <hr>
+    <h1>姓名案例使用计算属性实现</h1>
+    姓: <input type="text" v-model:value="firstName"><br>
+    名: <input type="text" v-model:value="lastName"><br>
+    全名: <span>{{fullName()}}</span>
+
+    <hr>
+    <h1>数组的遍历</h1>
+    <ul>
+        <li v-for="(person,index) in persons" v-bind:key="index">
+            {{person.name}} - {{person.age}} --索引:{{index}}
+        </li>
+    </ul>
+
+    <hr>
+    <h1>对象的遍历</h1>
+    <ul>
+        <li v-for="(c,index) in car" v-bind:key="index">
+            <!-- 对象只有一个，有多个信息，而不是数组有多个对象 -->
+            {{index}}--{{c}}
+        </li>
+    </ul>
+
+    <hr>
+    <h1>列表过滤,也就是搜索功能</h1>
+    <input type="text" placeholder="请输入名字" v-model:value="keyWord"><br>
+    <ul>
+        <li v-for="(person,index) in newPersons" v-bind:key="index">
+            {{person.name}}--{{person.age}}
+        </li>
+    </ul>
+</div>
+
+<script>
+    Vue.config.productionTip = false
+
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                firstName: '张',
+                lastName: '三',
+                keyWord: '',
+                persons: [
+                    {id: '1', name: '张三', age: '18'},
+                    {id: '2', name: '李四', age: '19'},
+                    {id: '3', name: '王五', age: '20'}
+                ],
+                car: {
+                    name: '奥迪A8',
+                    price: '70W',
+                    color: '银色'
+                }
+            }
+        },
+        methods: {
+            fullName() {
+                return this.firstName + '-' + this.lastName
+            }
+        },
+        computed: {
+            fullName: {
+                get() {
+                    //computed计算属性使用了缓存,只需要读一次fullName
+                    return this.firstName + '-' + this.lastName
+                }
+            },
+            newPersons: {
+                get() {
+                    return this.persons.filter((person) => {
+                        return person.name.indexOf(this.keyWord) !== -1
+                    })
+                }
+            }
+        },
+    })
+</script>
+</body>
+</html>

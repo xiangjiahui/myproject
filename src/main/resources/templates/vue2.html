@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue的事件的基本使用</title>
+    <script src="../js/vue.min-2.6.14.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <h1>Vue的事件的基本使用</h1>
+        <h2>欢迎来到学习页面{{name}}</h2>
+        <button v-on:click="showInfo">点击显示提示信息(不传参)</button>
+        <br>
+        <button v-on:click="showInfo1($event,666)">点击显示信息提示(传参)</button>
+        <br>
+        <el-row>
+            <el-button>默认按钮</el-button>
+            <el-button type="primary">主要按钮</el-button>
+            <el-button type="success">成功按钮</el-button>
+            <el-button type="info">信息按钮</el-button>
+            <el-button type="warning">警告按钮</el-button>
+            <el-button type="danger">危险按钮</el-button>
+        </el-row>
+
+
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+
+        new Vue({
+            el: '#app',
+            data(){
+              return {
+                  name: '向嘉晖'
+              }
+            },
+            methods: {
+                showInfo(){
+                    alert("向嘉晖你好！")
+                },
+                showInfo1(event,number){
+                  alert("向嘉晖你好！！"+number)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
